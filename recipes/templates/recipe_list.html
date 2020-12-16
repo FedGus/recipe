@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Рецепты</title>
 </head>
 <body>
     {% for recipe in recipe_list %}
-    {{ recipe.title }}
+    <figure>
+        <div class="card_image">
+            <img src="{{ recipe.image.url }}">
+        </div>
+        <h3>{{ recipe.title }}</h3>
+        <figcaption>{{ recipe.description }}</figcaption>
+        </figure>
     {% endfor %}
 </body>
 </html>

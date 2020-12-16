@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia'
+}
+figure {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px gray;
+    width: 250px;
+    height: 350px;
+    overflow: hidden;
+    margin: 8px;
+}
+.card_image {
+    height: 200px;
+    overflow: hidden;
+}
+
+figure img {
+    width: 250px;
+}
+
+h3, figcaption {
+    padding: 8px;
+}

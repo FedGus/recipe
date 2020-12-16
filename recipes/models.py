@@ -53,7 +53,7 @@ class Recipe(models.Model):
     title = models.CharField("Название рецепта", max_length=150)
     description = models.TextField("Описание")
     steps = models.TextField("Шаги приготовления")
-    image = models.ImageField("Изображение", upload_to="images/", null=True)
+    image = models.ImageField("Изображение", upload_to="media/", null=True)
 
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь автор", on_delete=models.SET_NULL, null=True)
 
