@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Ingredients(models.Model):
     ingredient_name = models.CharField("Ингредиент", max_length=150)
     proteins = models.PositiveSmallIntegerField("Белки", default=0)
