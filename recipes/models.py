@@ -1,12 +1,11 @@
 from django.db import models
 from django.conf import settings
 
-
 class Ingredients(models.Model):
     ingredient_name = models.CharField("Ингредиент", max_length=150)
-    proteins = models.PositiveSmallIntegerField("Белки", default=0)
-    fats = models.PositiveSmallIntegerField("Жиры", default=0)
-    carbohydrates = models.PositiveSmallIntegerField("Углеводы", default=0)
+    proteins = models.FloatField("Белки", default=0)
+    fats = models.FloatField("Жиры", default=0)
+    carbohydrates = models.FloatField("Углеводы", default=0)
 
     def __str__(self):
         return self.ingredient_name
@@ -54,6 +53,7 @@ class Recipe(models.Model):
     title = models.CharField("Название рецепта", max_length=150)
     description = models.TextField("Описание")
     steps = models.TextField("Шаги приготовления")
+    image = models.ImageField("Изображение", upload_to="images/", null=True)
 
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь автор", on_delete=models.SET_NULL, null=True)
 
