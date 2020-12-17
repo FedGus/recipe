@@ -4,17 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <title>Рецепты</title>
 </head>
 <body>
-    {% for recipe in recipe_list %}
-    <figure>
-        <div class="card_image">
-            <img src="{{ recipe.image.url }}">
-        </div>
-        <h3>{{ recipe.title }}</h3>
-        <figcaption>{{ recipe.description }}</figcaption>
-        </figure>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      {% for recipe in recipe_list %}
+    <div class="card" style="width: 18rem;">
+      <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <p class="card-text">{{ recipe.description| truncatewords:5 }}</p>
+        <a href="/{{ recipe.id }}" class="btn btn-primary">Подробнее</a>
+      </div>
+    </div>
     {% endfor %}
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

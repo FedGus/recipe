@@ -4,7 +4,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path("", views.RecipesView.as_view())
+    path("", views.RecipesView.as_view()),
+    path("<int:pk>/", views.RecipeDetailView.as_view())
 ]
 
 if settings.DEBUG:

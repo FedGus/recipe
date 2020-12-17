@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Рецепты</title>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card mb-3">
+
+          <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                 <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                     <h1 class="card-title">{{ recipe.title }}</h1>
+                       <p class="card-text"><small class="text-muted">{{ recipe.id_section }}</small> - <small class="text-muted">{{ recipe.id_kitchen }}</small></p>
+                      <ul class="list-group">
+                      {% for ingredient in recipe.ingredients.all %}
+                          <li class="list-group-item">{{ ingredient }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="card-body">
+              <p class="card-text">{{ recipe.description }}</p>
+              <p class="card-text">{{ recipe.steps|safe }}</p>
+            <p class="card-text"><small class="text-muted">Автор рецепта: {{ recipe.id_user }}</small></p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
