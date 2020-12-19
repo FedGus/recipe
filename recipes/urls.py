@@ -6,7 +6,8 @@ from . import views
 urlpatterns = [
     path("", views.RecipesView.as_view()),
     path("<int:pk>/", views.RecipeDetailView.as_view()),
-    path("recipe/", views.RecipeListView.as_view())
+    path("recipe/", views.RecipeListAPIView.as_view()),
+    path("recipe/<int:pk>", views.RecipeDetailAPIView.as_view()),
 ]
 
 if settings.DEBUG:
