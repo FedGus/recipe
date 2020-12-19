@@ -9,19 +9,22 @@
 </head>
 <body>
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      {% for recipe in recipe_list %}
-    <div class="card" style="width: 18rem;">
-      <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{ recipe.title }}</h5>
-        <p class="card-text">{{ recipe.description| truncatewords:5 }}</p>
-        <a href="/{{ recipe.id }}" class="btn btn-primary">Подробнее</a>
-      </div>
+    <h1 class="m-5">Рецепты</h1>
+  <div class="row justify-content-start">
+        {% for recipe in recipe_list %}
+    <div class="col-3">
+        <div class="card" style="width: 18rem; height: 25rem;">
+            <div class="overflow-hidden" style="height: 15rem;">
+          <img src="{{ recipe.image.url }}" class="card-img-top" alt="...">
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text">{{ recipe.description| truncatewords:5 }}</p>
+            <a href="/{{ recipe.id }}" class="btn btn-primary">Подробнее</a>
+          </div>
+        </div>
     </div>
-    {% endfor %}
-    </div>
+      {% endfor %}
   </div>
 </div>
 
