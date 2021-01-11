@@ -3,6 +3,12 @@ from import_export.admin import ImportExportModelAdmin
 from django.utils.safestring import mark_safe
 from .models import Ingredients, Country, Section, Kitchen, Recipe, Favorites, Comments, Assessment
 
+class CommentsInline(admin.TabularInline):
+    model = Comments
+    extra = 1
+    readonly_fields = ("id_recipe", "comment", "id_user")
+    save_on_top = True
+
 @admin.register(Ingredients)
 class IngredientsAdmin(ImportExportModelAdmin):
     list_display = ("ingredient_name", "proteins", "fats", "carbohydrates")
@@ -29,6 +35,8 @@ class RecipeAdmin(ImportExportModelAdmin):
         return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
 
     get_image.short_description = "Изображение"
+
+    inlines = [CommentsInline]
     pass
 
 admin.site.register(Favorites)
