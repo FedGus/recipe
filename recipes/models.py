@@ -76,7 +76,7 @@ class Favorites(models.Model):
         verbose_name_plural = "Избранные рецепты"
 
 class Comments(models.Model):
-    id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True)
+    id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True, related_name="comments")
     comment = models.TextField("Комментарий")
 
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь комментарий", on_delete=models.SET_NULL, null=True)

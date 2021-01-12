@@ -8,6 +8,7 @@ urlpatterns = [
     path("<int:pk>/", views.RecipeDetailView.as_view()),
     path("recipe/", views.RecipeListAPIView.as_view()),
     path("recipe/<int:pk>", views.RecipeDetailAPIView.as_view()),
+    path("comment/", views.CommentCreateView.as_view()),
 ]
 
 if settings.DEBUG:
