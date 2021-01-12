@@ -78,7 +78,7 @@ class Favorites(models.Model):
 class Comments(models.Model):
     id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True, related_name="comments")
     comment = models.TextField("Комментарий")
-
+    parent = models.ForeignKey("self", verbose_name="Родительский комментарий", on_delete=models.SET_NULL, blank=True, null=True, related_name="children")
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь комментарий", on_delete=models.SET_NULL, null=True)
     
     def __str__(self):

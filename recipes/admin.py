@@ -6,7 +6,7 @@ from .models import Ingredients, Country, Section, Kitchen, Recipe, Favorites, C
 class CommentsInline(admin.TabularInline):
     model = Comments
     extra = 1
-    readonly_fields = ("id_recipe", "comment", "id_user")
+    readonly_fields = ("id_recipe", "comment", "parent", "id_user")
     save_on_top = True
 
 @admin.register(Ingredients)
