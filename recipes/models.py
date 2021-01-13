@@ -2,6 +2,8 @@ from multiprocessing.reduction import register
 
 from django.db import models
 from django.conf import settings
+from datetime import date
+
 
 class Ingredients(models.Model):
     ingredient_name = models.CharField("Ингредиент", max_length=150)
@@ -16,6 +18,7 @@ class Ingredients(models.Model):
         verbose_name = "Ингредиент"
         verbose_name_plural = "Ингредиенты"
 
+
 class Country(models.Model):
     country_name = models.CharField("Страна", max_length=150)
 
@@ -25,6 +28,7 @@ class Country(models.Model):
     class Meta:
         verbose_name = "Страна"
         verbose_name_plural = "Страны"
+
 
 class Section(models.Model):
     name_section = models.CharField("Название раздела", max_length=150)
@@ -37,6 +41,7 @@ class Section(models.Model):
         verbose_name = "Раздел"
         verbose_name_plural = "Разделы"
 
+
 class Kitchen(models.Model):
     id_country = models.ForeignKey(Country, verbose_name="страны", on_delete=models.SET_NULL, null=True)
     name_kitchen = models.CharField("Название кухни", max_length=150)
@@ -48,7 +53,8 @@ class Kitchen(models.Model):
         verbose_name = "Кухня"
         verbose_name_plural = "Кухни"
 
-class Recipe(models.Model): 
+
+class Recipe(models.Model):
     id_section = models.ForeignKey(Section, verbose_name="раздел", on_delete=models.SET_NULL, null=True)
     id_kitchen = models.ForeignKey(Kitchen, verbose_name="кухня", on_delete=models.SET_NULL, null=True)
     ingredients = models.ManyToManyField(Ingredients, verbose_name="ингредиенты", related_name="ingredients_recipe")
@@ -57,7 +63,8 @@ class Recipe(models.Model):
     steps = models.TextField("Шаги приготовления")
     image = models.ImageField("Изображение", upload_to="media/", null=True)
 
-    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь автор", on_delete=models.SET_NULL, null=True)
+    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь автор", on_delete=models.SET_NULL,
+                                null=True)
 
     def __str__(self):
         return self.title
@@ -66,21 +73,30 @@ class Recipe(models.Model):
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
 
+
 class Favorites(models.Model):
     id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True)
 
-    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь избранное", on_delete=models.SET_NULL, null=True)
-  
+    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="Пользователь Избранного",
+                                on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return "Избранное"
+
     class Meta:
         verbose_name = "Избранное"
         verbose_name_plural = "Избранные рецепты"
 
+
 class Comments(models.Model):
-    id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True, related_name="comments")
+    id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True,
+                                  related_name="comments")
     comment = models.TextField("Комментарий")
-    parent = models.ForeignKey("self", verbose_name="Родительский комментарий", on_delete=models.SET_NULL, blank=True, null=True, related_name="children")
-    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь комментарий", on_delete=models.SET_NULL, null=True)
-    
+    parent = models.ForeignKey("self", verbose_name="Родительский комментарий", on_delete=models.SET_NULL, blank=True,
+                               null=True, related_name="children")
+    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь комментарий",
+                                on_delete=models.SET_NULL, null=True)
+
     def __str__(self):
         return self.comment
 
@@ -88,11 +104,13 @@ class Comments(models.Model):
         verbose_name = "Комментарий"
         verbose_name_plural = "Коментарии"
 
+
 class Assessment(models.Model):
     id_recipe = models.ForeignKey(Recipe, verbose_name="рецепт", on_delete=models.SET_NULL, null=True)
     assessment = models.PositiveSmallIntegerField("Оценка", default=0)
-
-    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь оценка", on_delete=models.SET_NULL, null=True)
+    date = models.DateField(default=date.today, verbose_name='Дата оценивания')
+    id_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="пользователь оценка", on_delete=models.SET_NULL,
+                                null=True)
 
     class Meta:
         verbose_name = "Оценка"
