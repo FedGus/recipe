@@ -9,6 +9,8 @@ urlpatterns = [
     path("recipe/", views.RecipeListAPIView.as_view()),
     path("recipe/<int:pk>", views.RecipeDetailAPIView.as_view()),
     path("comment/", views.CommentCreateView.as_view()),
+    path("assessment/", views.AddAssessmentView.as_view()),
+    path("assessment/<int:pk>", views.DeleteAssessmentView.as_view()),
 ]
 
 if settings.DEBUG:

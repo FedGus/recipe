@@ -64,7 +64,7 @@ class CommentsAdmin(admin.ModelAdmin):
 
 
 @admin.register(Assessment)
-class AssessmentAdmin(admin.ModelAdmin):
+class AssessmentAdmin(ImportExportModelAdmin):
     list_display = ("id_recipe", "assessment", "id_user", "date")
     list_filter = (
         'assessment',

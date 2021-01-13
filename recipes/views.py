@@ -4,8 +4,9 @@ from django.views.generic.base import View
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Recipe, Ingredients
-from .serializers import RecipeListSerializer, RecipeDetailSerializer, CommentCreateSerializer
+from .models import Recipe, Ingredients, Assessment
+from .serializers import RecipeListSerializer, RecipeDetailSerializer, CommentCreateSerializer, \
+    CreateAssessmentSerializer, DeleteAssessmentSerializer
 
 
 class RecipesView(View):
@@ -40,3 +41,22 @@ class CommentCreateView(APIView):
         if comment.is_valid():
             comment.save()
         return Response(status=201)
+
+
+class AddAssessmentView(APIView):
+    def post(self, request):
+        serializer = CreateAssessmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=201)
+        else:
+            return Response(status=400)
+
+
+class DeleteAssessmentView(APIView):
+    def delete(self, request, pk):
+        serializer = DeleteAssessmentSerializer(data=pk)
+        if serializer.is_valid():
+            return Response(status=201)
+        else:
+            return Response(status=400)
