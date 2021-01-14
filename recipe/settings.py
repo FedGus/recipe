@@ -24,7 +24,7 @@ SECRET_KEY = '@j3qn^m079zxe2$dicke4h@r&dndpqag1#7m6l!=!lw&z&bx_5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ip-2020-1.std-714.ist.mospolytech.ru', "127.0.0.1"]  # customize with your domain name
+ALLOWED_HOSTS = ['fgusev.okrasnova.ru', 'www.fgusev.okrasnova.ru', '127.0.0.1']  # customize with your domain name
 
 # Application definition
 
@@ -125,5 +125,5 @@ STATICFILES_DIRS = [STATIC_DIR]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_ROOT = '/home/std/static'
-MEDIA_ROOT = '/home/std/media'
+STATIC_ROOT='static/'
+MEDIA_ROOT = 'media/'
