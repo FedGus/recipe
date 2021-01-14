@@ -38,13 +38,36 @@ class KitchenAdmin(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(ImportExportModelAdmin):
-    list_display = ("title", "get_image", "id_section", "id_kitchen", "description", "steps")
+    list_display = ("title", "get_image", "id_section", "id_kitchen", "description", "status")
     list_display_links = ("title",)
     list_filter = ("id_section", "id_kitchen")
     search_fields = ("title", "description")
+    actions = ["publish", "unpublish"]
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.image.url} width="100" height="110"')
+
+    def unpublish(self, request, queryset):
+        row_update = queryset.update(status=False)
+        if row_update == 1:
+            message_bit = "1 запись обновлена"
+        else:
+            message_bit = f"{row_update} записей обновлено"
+        self.message_user(request, f"{message_bit}")
+
+    def publish(self, request, queryset):
+        row_update = queryset.update(status=True)
+        if row_update == 1:
+            message_bit = "1 запись обновлена"
+        else:
+            message_bit = f"{row_update} записей обновлено"
+        self.message_user(request, f"{message_bit}")
+
+    publish.short_description = "Опубликовать"
+    publish.allowed_permissions = ("change",)
+
+    unpublish.short_description = "Снять с публикации"
+    unpublish.allowed_permissions = ("change",)
 
     get_image.short_description = "Изображение"
 
